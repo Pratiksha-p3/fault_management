@@ -1,0 +1,171 @@
+# generate_ai_ml_dl_html.py
+
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI, ML, and Deep Learning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 1000px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #3498db;
+            color: white;
+            padding: 10px;
+        }
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning (DL)</h1>
+
+<h2>Artificial Intelligence (AI)</h2>
+<p>
+Artificial Intelligence is the simulation of human intelligence in machines.
+AI systems can reason, learn, solve problems, understand language, and make decisions.
+</p>
+
+<h3>Applications</h3>
+<ul>
+<li>Chatbots and Virtual Assistants</li>
+<li>Autonomous Vehicles</li>
+<li>Fraud Detection</li>
+<li>Healthcare Diagnosis</li>
+<li>Recommendation Systems</li>
+</ul>
+
+<h2>Machine Learning (ML)</h2>
+<p>
+Machine Learning is a subset of AI that enables computers to learn from data
+without explicit programming.
+</p>
+
+<h3>Types of Machine Learning</h3>
+<ul>
+<li>Supervised Learning</li>
+<li>Unsupervised Learning</li>
+<li>Reinforcement Learning</li>
+</ul>
+
+<h3>Popular Algorithms</h3>
+<ul>
+<li>Linear Regression</li>
+<li>Logistic Regression</li>
+<li>Decision Tree</li>
+<li>Random Forest</li>
+<li>XGBoost</li>
+<li>K-Means</li>
+</ul>
+
+<h2>Deep Learning (DL)</h2>
+<p>
+Deep Learning is a subset of Machine Learning that uses multi-layer neural
+networks to learn complex patterns from large datasets.
+</p>
+
+<h3>Popular Architectures</h3>
+<ul>
+<li>Artificial Neural Networks (ANN)</li>
+<li>Convolutional Neural Networks (CNN)</li>
+<li>Recurrent Neural Networks (RNN)</li>
+<li>LSTM</li>
+<li>Transformers</li>
+</ul>
+
+<h2>Comparison</h2>
+
+<table>
+<tr>
+<th>Feature</th>
+<th>AI</th>
+<th>ML</th>
+<th>DL</th>
+</tr>
+
+<tr>
+<td>Definition</td>
+<td>Human Intelligence Simulation</td>
+<td>Learning from Data</td>
+<td>Neural Network Based Learning</td>
+</tr>
+
+<tr>
+<td>Data Requirement</td>
+<td>Medium</td>
+<td>High</td>
+<td>Very High</td>
+</tr>
+
+<tr>
+<td>Complexity</td>
+<td>Medium</td>
+<td>High</td>
+<td>Very High</td>
+</tr>
+
+<tr>
+<td>Examples</td>
+<td>ChatGPT</td>
+<td>Fraud Detection</td>
+<td>Image Recognition</td>
+</tr>
+</table>
+
+<h2>Hierarchy</h2>
+
+<pre>
+Artificial Intelligence
+        |
+        └── Machine Learning
+                |
+                └── Deep Learning
+</pre>
+
+<h2>Conclusion</h2>
+
+<p>
+Artificial Intelligence is the broad field of creating intelligent systems.
+Machine Learning enables systems to learn from data, while Deep Learning uses
+deep neural networks to solve complex tasks such as computer vision,
+speech recognition, and Generative AI.
+</p>
+
+</div>
+
+</body>
+</html>
+"""
+
+with open("ai_ml_dl.html", "w", encoding="utf-8") as file:
+    file.write(html_content)
+
+print("HTML file generated successfully: ai_ml_dl.html")
