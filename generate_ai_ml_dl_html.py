@@ -169,4 +169,4 @@ with open("ai_ml_dl.html", "w", encoding="utf-8") as file:
     file.write(html_content)
 
 print("HTML file generated successfully: ai_ml_dl.html")
-password = "test123"
+
