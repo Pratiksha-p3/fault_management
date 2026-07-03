@@ -1,0 +1,67 @@
+import sqlite3
+import os
+import pickle
+import subprocess
+
+PASSWORD = "admin123"      # Hardcoded secret
+API_KEY = "sk-test-12345"  # Hardcoded API key
+
+db = sqlite3.connect("users.db")
+
+class UserService:
+
+    def get_user(self, user_id):
+
+        query = f"SELECT * FROM users WHERE id = {user_id}"
+
+        cursor = db.cursor()
+
+        cursor.execute(query)
+
+        result = cursor.fetchall()
+
+        return result
+
+    def delete_user(self, user_id):
+
+        query = "DELETE FROM users WHERE id=" + user_id
+
+        db.execute(query)
+
+        db.commit()
+
+    def run_command(self, cmd):
+
+        os.system(cmd)
+
+    def load_data(self, file_path):
+
+        with open(file_path, "rb") as f:
+            return pickle.load(f)
+
+    def process_users(self):
+
+        users = self.get_all_users()
+
+        results = []
+
+        for i in range(len(users)):
+            for j in range(len(users)):
+                results.append(users[i])
+
+        return results
+
+    def get_all_users(self):
+
+        cursor = db.cursor()
+
+        cursor.execute("SELECT * FROM users")
+
+        return cursor.fetchall()
+
+
+service = UserService()
+
+user_id = input("Enter user id: ")
+
+print(service.get_user(user_id))
