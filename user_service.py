@@ -1,71 +1,88 @@
 import sqlite3
 import os
+import subprocess
+from typing import List, Tuple, Optional
 
-# SECURITY ISSUE: Hardcoded secret
-API_KEY = "super_secret_api_key_123"
-
-# SECURITY ISSUE: Hardcoded password
-DB_PASSWORD = "admin123"
+# Read secrets from environment variables
+API_KEY = os.getenv("API_KEY")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 
 class UserService:
+    """
+    User service with security, performance,
+    bug fixes, and improved code quality.
+    """
 
-    # ARCHITECTURE ISSUE:
-    # Database connection created directly inside service
-    def __init__(self):
-        self.conn = sqlite3.connect("users.db")
+    def __init__(self, db_path: str = "users.db"):
+        # Database connection injected/configurable
+        self.conn = sqlite3.connect(db_path)
+        self.age: Optional[int] = None
 
-    # SQL Injection Vulnerability
-    def get_user(self, username):
-        query = f"SELECT * FROM users WHERE username='{username}'"
+    # Fixed: Parameterized query (prevents SQL injection)
+    def get_user(self, username: str) -> List[Tuple]:
+        query = "SELECT * FROM users WHERE username = ?"
         cursor = self.conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, (username,))
         return cursor.fetchall()
 
-    # Bug: division by zero possible
-    def calculate_average(self, total, count):
+    # Fixed: Division-by-zero validation
+    def calculate_average(self, total: float, count: int) -> float:
+        if count <= 0:
+            raise ValueError("Count must be greater than zero.")
         return total / count
 
-    # Code Quality Issue: duplicate logic
-    def calculate_bonus(self, salary):
-        if salary > 50000:
-            return salary * 0.10
-        else:
-            return salary * 0.05
+    # Removed duplicate logic
+    def _calculate_reward(self, salary: float) -> float:
+        return salary * 0.10 if salary > 50000 else salary * 0.05
 
-    def calculate_incentive(self, salary):
-        if salary > 50000:
-            return salary * 0.10
-        else:
-            return salary * 0.05
+    def calculate_bonus(self, salary: float) -> float:
+        return self._calculate_reward(salary)
 
-    # Security Issue: command injection
-    def ping_server(self, host):
-        os.system("ping " + host)
+    def calculate_incentive(self, salary: float) -> float:
+        return self._calculate_reward(salary)
 
-    # Bug: no validation
-    def update_user_age(self, age):
+    # Fixed: Prevent command injection
+    def ping_server(self, host: str) -> None:
+        subprocess.run(
+            ["ping", host],
+            check=False,
+            shell=False
+        )
+
+    # Fixed: Input validation
+    def update_user_age(self, age: int) -> None:
+        if not isinstance(age, int):
+            raise TypeError("Age must be an integer.")
+
+        if age < 0 or age > 120:
+            raise ValueError("Age must be between 0 and 120.")
+
         self.age = age
 
-    # Performance Issue
-    def get_all_users(self):
-        users = []
+    # Fixed: Execute query only once
+    def get_all_users(self) -> List[Tuple]:
         cursor = self.conn.cursor()
+        cursor.execute("SELECT * FROM users")
+        return cursor.fetchall()
 
-        for i in range(1000):
-            cursor.execute("SELECT * FROM users")
-            users.extend(cursor.fetchall())
-
-        return users
+    def close(self) -> None:
+        self.conn.close()
 
 
 if __name__ == "__main__":
     service = UserService()
 
-    print(service.get_user("admin"))
+    try:
+        print(service.get_user("admin"))
 
-    print(service.calculate_average(100, 0))
+        print(service.calculate_average(100, 5))
 
-    service.ping_server("google.com")
+        service.ping_server("google.com")
 
-    print(service.get_all_users())
+        service.update_user_age(25)
+
+        print(service.get_all_users())
+
+    finally:
+        service.close()
