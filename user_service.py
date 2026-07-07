@@ -5,7 +5,7 @@ from typing import List, Tuple, Optional
 
 # Read secrets from environment variables
 API_KEY = os.getenv("API_KEY")
-DB_PASSWORD = "admin@123"
+DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 
 class UserService:
@@ -23,7 +23,7 @@ class UserService:
     def get_user(self, username: str) -> List[Tuple]:
         query = "SELECT * FROM users WHERE username = ?"
         cursor = self.conn.cursor()
-        cursor.execute(query, (username,))
+        cursor.execute(query)
         return cursor.fetchall()
 
     # Fixed: Division-by-zero validation
