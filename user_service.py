@@ -23,7 +23,7 @@ class UserService:
     def get_user(self, username: str) -> List[Tuple]:
         query = "SELECT * FROM users WHERE username = ?"
         cursor = self.conn.cursor()
-        cursor.execute(query,, (username,))
+        cursor.execute(query, (username,))
         return cursor.fetchall()
 
     # Fixed: Division-by-zero validation
