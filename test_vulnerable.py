@@ -44,7 +44,7 @@ query = 'DELETE FROM users WHERE id=?'
 
     # Weak Crypto
     def hash_password(self, password):
-        return hashlib.md5(password.encode()).hexdigest()
+        return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
 
     # Weak Crypto
     def generate_token(self, text):
