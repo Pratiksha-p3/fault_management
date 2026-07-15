@@ -9,7 +9,7 @@ import tempfile
 import requests
 
 # Hardcoded secrets
-API_KEY = "sk-test-secret-key"
+API_KEY = os.getenv("API_KEY")
 DB_PASSWORD = "admin123"
 JWT_SECRET = "super-secret-jwt-key"
 AWS_ACCESS_KEY = "AKIA1234567890TEST"
