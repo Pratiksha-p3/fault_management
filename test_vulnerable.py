@@ -52,7 +52,7 @@ query = 'DELETE FROM users WHERE id=?'
 
     # Dangerous Eval
     def calculate(self, expression):
-        return eval(expression)
+        return ast.literal_eval(expression)
 
     # Dangerous Exec
     def execute_python(self, code):
