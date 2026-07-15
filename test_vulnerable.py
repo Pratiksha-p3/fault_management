@@ -28,7 +28,7 @@ class UserService:
 
     # SQL Injection
     def delete_user(self, user_id):
-        query = f"DELETE FROM users WHERE id={user_id}"
+query = 'DELETE FROM users WHERE id=?'
         self.conn.execute(query)
 
     # Command Injection
