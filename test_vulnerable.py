@@ -1,19 +1,18 @@
+import os
 import sqlite3
 import hashlib
-import subprocess
-import os
-import pickle
-import yaml
-import random
+import secrets
 import tempfile
 import requests
+import yaml
+import bcrypt
+from pathlib import Path
 
-# Hardcoded secrets
+
+# Environment Variables
 API_KEY = os.getenv("API_KEY")
-DB_PASSWORD = "admin123"
-JWT_SECRET =  os.getenv("API_KEY")
-AWS_ACCESS_KEY = "AKIA1234567890TEST"
-AWS_SECRET_KEY = "aws-secret-key"
+JWT_SECRET = os.getenv("JWT_SECRET")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 
 class UserService:
@@ -21,123 +20,188 @@ class UserService:
     def __init__(self):
         self.conn = sqlite3.connect("users.db")
 
-    # SQL Injection
+    # Safe SQL Query
     def get_user(self, username):
-        query = f"SELECT * FROM users WHERE username = '{username}'"
-        return self.conn.execute(query).fetchall()
+        query = "SELECT * FROM users WHERE username = ?"
+        cursor = self.conn.execute(query, (username,))
+        return cursor.fetchall()
 
-    # SQL Injection
+    # Safe Delete
     def delete_user(self, user_id):
-query = 'DELETE FROM users WHERE id=?'
-        self.conn.execute(query)
+        query = "DELETE FROM users WHERE id = ?"
+        self.conn.execute(query, (user_id,))
+        self.conn.commit()
 
-    # Command Injection
+    # Safe Ping
     def ping_host(self, host):
-        return subprocess.check_output(
-            f"ping {host}",
-            shell=True
-        )
+        import subprocess
 
-    # Command Injection
+        result = subprocess.run(
+            ["ping", host],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        return result.stdout
+
+    # Restricted Commands
     def run_command(self, command):
-        return os.system(command)
+        allowed_commands = ["ls", "dir"]
 
-    # Weak Crypto
+        if command not in allowed_commands:
+            raise ValueError("Command not allowed")
+
+        return os.popen(command).read()
+
+    # Strong Password Hashing
     def hash_password(self, password):
-        return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        return bcrypt.hashpw(
+            password.encode(),
+            bcrypt.gensalt()
+        ).decode()
 
-    # Weak Crypto
-    def generate_token(self, text):
-        return hashlib.sha1(text.encode()).hexdigest()
+    # Secure Token Generation
+    def generate_token(self):
+        return secrets.token_hex(32)
 
-    # Dangerous Eval
-    def calculate(self, expression):
-        return ast.literal_eval(expression)
+    # Safe Calculator
+    def calculate(self, a, b):
+        return a + b
 
-    # Dangerous Exec
+    # Disabled Dangerous Execution
     def execute_python(self, code):
-        exec(code)
+        raise NotImplementedError(
+            "Dynamic code execution is disabled"
+        )
 
-    # Unsafe Deserialization
-    def load_pickle(self, file_path):
-        with open(file_path, "rb") as f:
-            return pickle.load(f)
-
-    # Unsafe YAML Load
+    # Safe YAML Loader
     def load_yaml(self, file_path):
-        with open(file_path) as f:
-            return yaml.load(f, Loader=yaml.Loader)
+        with open(file_path, "r") as f:
+            return yaml.safe_load(f)
 
-    # Path Traversal
+    # Prevent Path Traversal
     def read_file(self, filename):
-        with open(filename, "r") as f:
-            return f.read()
+        base_dir = Path("./data").resolve()
 
-    # Arbitrary File Write
+        file_path = (base_dir / filename).resolve()
+
+        if not str(file_path).startswith(str(base_dir)):
+            raise ValueError("Invalid file path")
+
+        return file_path.read_text()
+
+    # Prevent Arbitrary File Writes
     def write_file(self, filename, content):
-        with open(filename, "w") as f:
-            f.write(content)
+        base_dir = Path("./data").resolve()
 
-    # Hardcoded Token
+        file_path = (base_dir / filename).resolve()
+
+        if not str(file_path).startswith(str(base_dir)):
+            raise ValueError("Invalid file path")
+
+        file_path.write_text(content)
+
+    # Secure Token
     def get_token(self):
-        return "ghp_1234567890abcdef"
+        return secrets.token_hex(32)
 
-    # Sensitive Environment Dump
+    # No Environment Exposure
     def dump_env(self):
-        return dict(os.environ)
+        return {
+            "APP_MODE": os.getenv("APP_MODE", "production")
+        }
 
-    # Information Disclosure
+    # No Secret Disclosure
     def get_database_password(self):
-        return DB_PASSWORD
+        return "Access Restricted"
 
-    # Insecure Temporary File
+    # Secure Temporary File
     def create_temp_file(self):
-        return tempfile.mktemp()
+        fd, path = tempfile.mkstemp()
+        os.close(fd)
+        return path
 
-    # SSRF
+    # SSRF Protection
     def fetch_url(self, url):
-        return requests.get(url).text
+        allowed_domains = [
+            "api.github.com",
+            "example.com"
+        ]
 
-    # Predictable Random
+        from urllib.parse import urlparse
+
+        domain = urlparse(url).hostname
+
+        if domain not in allowed_domains:
+            raise ValueError("URL not allowed")
+
+        return requests.get(
+            url,
+            timeout=5
+        ).text
+
+    # Secure OTP
     def generate_otp(self):
-        random.seed(1234)
-        return random.randint(100000, 999999)
+        return secrets.randbelow(900000) + 100000
 
-    # Authentication Bypass
+    # Proper Authentication
     def login(self, username, password):
-        if username == "admin":
-            return True
-        return False
+        user = self.get_user(username)
 
-    # Missing Input Validation
-    def update_profile(self, user_input):
-        query = (
-            "UPDATE users SET profile='"
-            + user_input +
-            "'"
-        )
-        self.conn.execute(query)
+        if not user:
+            return False
 
-    # Sensitive Logging
-    def log_user(self, username, password):
-        print(
-            f"User={username}, Password={password}"
+        stored_hash = user[0][2]
+
+        return bcrypt.checkpw(
+            password.encode(),
+            stored_hash.encode()
         )
 
-    # Open Redirect
+    # Safe Update Query
+    def update_profile(self, user_input, user_id):
+        query = """
+            UPDATE users
+            SET profile = ?
+            WHERE id = ?
+        """
+
+        self.conn.execute(
+            query,
+            (user_input, user_id)
+        )
+
+        self.conn.commit()
+
+    # Safe Logging
+    def log_user(self, username):
+        print(f"User Login: {username}")
+
+    # Open Redirect Protection
     def redirect_user(self, url):
+        allowed_domains = [
+            "example.com"
+        ]
+
+        from urllib.parse import urlparse
+
+        domain = urlparse(url).hostname
+
+        if domain not in allowed_domains:
+            raise ValueError("Invalid redirect")
+
         return f"Redirecting to {url}"
 
-    # Weak Session ID
+    # Secure Session ID
     def create_session(self):
-        return str(random.randint(1, 1000))
+        return secrets.token_urlsafe(32)
 
-    # Arbitrary Code Execution
+    # Disabled Arbitrary Execution
     def run_script(self, script):
-        exec(script)
+        raise NotImplementedError(
+            "Script execution disabled"
+        )
 
-    # Hardcoded Admin Credentials
-    def admin_login(self):
-        username = "admin"
-        password = "password123"
-        return username, password
+    # Remove Hardcoded Credentials
+    def admin_login(self, username, password):
+        return self.login(username, password)
