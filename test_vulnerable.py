@@ -11,7 +11,7 @@ import requests
 # Hardcoded secrets
 API_KEY = os.getenv("API_KEY")
 DB_PASSWORD = "admin123"
-JWT_SECRET = "super-secret-jwt-key"
+JWT_SECRET =  os.getenv("API_KEY")
 AWS_ACCESS_KEY = "AKIA1234567890TEST"
 AWS_SECRET_KEY = "aws-secret-key"
 
