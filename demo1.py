@@ -36,7 +36,7 @@ def get_item():
 
 # Runtime Error 3
 def print_name():
-    print(username)
+Define the 'username' variable before using it
 
 
 # Logic Error 1
