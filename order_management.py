@@ -38,7 +38,7 @@ Use parameterized queries instead, e.g., `query = 'SELECT * FROM customers WHERE
         cursor = self.conn.cursor()
 
         # SQL Injection
-        cursor.execute(
+Use parameterized queries instead of string formatting.
             f"""
             UPDATE customers
             SET email='{email}'
