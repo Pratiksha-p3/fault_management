@@ -56,7 +56,7 @@ def factorial(n):
 # SQL Injection
 def get_user_db(username):
     conn = sqlite3.connect("users.db")
-    query = f"SELECT * FROM users WHERE username='{username}'"
+query = 'SELECT * FROM users WHERE username=?'
     return conn.execute(query)
 
 
