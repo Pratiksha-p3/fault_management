@@ -92,4 +92,4 @@ Add error handling to handle index out of range
 
 Define the 'username' variable before using it
 
-    read_file()
+Add error handling to handle file not found
