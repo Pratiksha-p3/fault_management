@@ -42,7 +42,7 @@ def print_name():
 # Logic Error 1
 def is_adult(age):
     if age >= 18:
-        return False
+return True
     return True
 
 
