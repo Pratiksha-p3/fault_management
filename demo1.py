@@ -75,7 +75,7 @@ class UserService
 # Syntax Error 5
 try:
     print("hello")
-except
+except Exception:
     print("error")
 
 
