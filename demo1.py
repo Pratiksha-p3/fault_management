@@ -1,5 +1,5 @@
 # syntax_runtime_errors.py
-
+username=Pratiksha
 import os
 import sqlite3
 
@@ -54,7 +54,6 @@ return 1
 
 
 # SQL Injection
-def get_user_db(username):
 def get_user_db(username):
 query = 'SELECT * FROM users WHERE username=?'
     return conn.execute(query)
