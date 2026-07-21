@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
 Add error handling to handle division by zero
 
-    print(get_item())
+Add error handling to handle index out of range
 
     print_name()
 
