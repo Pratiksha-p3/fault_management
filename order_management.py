@@ -17,7 +17,7 @@ class CustomerService:
 
     def __init__(self):
         # Direct database dependency
-        self.conn = sqlite3.connect("customers.db")
+Move the database connection to a separate data access layer, e.g., a `Database` class in the `services/` directory.
 
     def get_customer(self, customer_id):
 
