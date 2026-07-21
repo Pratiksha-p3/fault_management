@@ -39,7 +39,7 @@ Use parameterized queries instead, e.g., `query = 'SELECT * FROM customers WHERE
 
         # SQL Injection
 Use parameterized queries instead of string formatting.
-            f"""
+Use parameterized queries instead, e.g., `query = 'UPDATE customers SET email = ? WHERE id = ?'; cursor.execute(query, (email, customer_id))`
             UPDATE customers
             SET email='{email}'
             WHERE id={customer_id}
