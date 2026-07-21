@@ -65,7 +65,7 @@ Use the subprocess module with the 'args' parameter to prevent command injection
 
 
 # Syntax Error 4
-class UserService
+class UserService:
 
     def __init__(self):
         self.name = "admin"
