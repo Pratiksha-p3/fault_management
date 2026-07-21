@@ -7,7 +7,7 @@ import yaml
 import random
 import json
 
-API_KEY = "sk-prod-secret-key"
+API_KEY = os.getenv("API_KEY")
 
 # SECURITY ISSUE 2
 DB_PASSWORD = "admin123"
