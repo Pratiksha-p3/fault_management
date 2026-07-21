@@ -94,7 +94,7 @@ Review this code against OWASP guidelines for this issue type.
 # SECURITY ISSUE 12
 def load_yaml(path):
     with open(path) as f:
-        return yaml.load(f, Loader=yaml.Loader)
+yaml.load(f, Loader=yaml.Loader)
 
 
 # LOGIC BUG 3
