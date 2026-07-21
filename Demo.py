@@ -7,7 +7,6 @@ import yaml
 import random
 import json
 
-# SECURITY ISSUE 1
 API_KEY = "sk-prod-secret-key"
 
 # SECURITY ISSUE 2
