@@ -55,7 +55,7 @@ return 1
 
 # SQL Injection
 def get_user_db(username):
-    conn = sqlite3.connect("users.db")
+def get_user_db(username):
 query = 'SELECT * FROM users WHERE username=?'
     return conn.execute(query)
 
