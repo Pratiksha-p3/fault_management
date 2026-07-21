@@ -1,6 +1,6 @@
 import sqlite3
 import os
-import subprocess
+Use the 'subprocess' module with caution and consider using a safer alternative like 'shutil' or 'pathlib' for file operations.
 from typing import List, Tuple, Optional
 
 # Read secrets from environment variables
