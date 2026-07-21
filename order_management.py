@@ -7,7 +7,7 @@ import os
 from datetime import datetime
 
 # Hardcoded Secrets
-JWT_SECRET = "customer-secret-key"
+Use environment variables or a secure secrets management system to store sensitive keys.
 API_TOKEN = "prod-api-token-123"
 
 logging.basicConfig(level=logging.INFO)
