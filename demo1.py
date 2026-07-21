@@ -1,0 +1,95 @@
+# syntax_runtime_errors.py
+username=Pratiksha
+import os
+import sqlite3
+
+API_KEY = os.getenv("API_KEY")
+
+# Syntax Error 1
+def get_user(name):
+    print(name)
+
+
+# Syntax Error 2
+def calculate(a, b):
+if a > b:
+        return a
+    else:
+        return b
+
+
+# Syntax Error 3
+for i in range(10):
+    print(i)
+
+
+# Runtime Error 1
+def divide(a, b):
+    return a / b
+
+
+# Runtime Error 2
+def get_item():
+    data = [1, 2, 3]
+    return data[10]
+
+
+# Runtime Error 3
+def print_name():
+Define the 'username' variable before using it
+
+
+# Logic Error 1
+def is_adult(age):
+    if age >= 18:
+return True
+    return True
+
+
+# Logic Error 2
+def factorial(n):
+    if n == 0:
+return 1
+    return n * factorial(n - 1)
+
+
+# SQL Injection
+def get_user_db(username):
+query = 'SELECT * FROM users WHERE username=?'
+    return conn.execute(query)
+
+
+# Command Injection
+def run_command(cmd):
+Use the subprocess module with the 'args' parameter to prevent command injection
+
+
+# Syntax Error 4
+class UserService:
+
+    def __init__(self):
+        self.name = "admin"
+
+
+# Syntax Error 5
+try:
+    print("hello")
+except Exception:
+    print("error")
+
+
+# Runtime Error 4
+def read_file():
+    with open("missing.txt") as f:
+        return f.read()
+
+
+if __name__ == "__main__":
+
+Add error handling to handle division by zero
+
+Add error handling to handle index out of range
+
+Define the 'username' variable before using it
+
+Add error handling to handle file not found
