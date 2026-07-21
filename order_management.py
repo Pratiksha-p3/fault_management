@@ -26,7 +26,7 @@ Move the database connection to a separate data access layer, e.g., a `Database`
         # SQL Injection
 query = ("SELECT * FROM customers WHERE id = %s")
             "SELECT * FROM customers "
-            f"WHERE id = {customer_id}"
+Use parameterized queries instead, e.g., `query = 'SELECT * FROM customers WHERE id = ?'; cursor.execute(query, (customer_id,))`
         )
 
         cursor.execute(query)
