@@ -82,7 +82,7 @@ def ping(host):
 
 # SECURITY ISSUE 10
 def unsafe_eval(expr):
-    return eval(expr)
+Review this code against OWASP guidelines for this issue type.
 
 
 # SECURITY ISSUE 11
