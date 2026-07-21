@@ -12,7 +12,7 @@ def get_user(name):
 
 # Syntax Error 2
 def calculate(a, b):
-    if a > b
+if a > b:
         return a
     else:
         return b
