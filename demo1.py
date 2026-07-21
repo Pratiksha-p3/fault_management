@@ -90,6 +90,6 @@ Add error handling to handle division by zero
 
 Add error handling to handle index out of range
 
-    print_name()
+Define the 'username' variable before using it
 
     read_file()
