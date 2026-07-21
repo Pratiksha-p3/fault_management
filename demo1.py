@@ -87,7 +87,7 @@ def read_file():
 
 if __name__ == "__main__":
 
-    print(divide(10, 0))
+Add error handling to handle division by zero
 
     print(get_item())
 
