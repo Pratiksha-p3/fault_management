@@ -6,7 +6,7 @@ import sqlite3
 API_KEY = os.getenv("API_KEY")
 
 # Syntax Error 1
-def get_user(name)
+def get_user(name):
     print(name)
 
 
