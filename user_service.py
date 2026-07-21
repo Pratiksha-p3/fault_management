@@ -44,7 +44,7 @@ class UserService:
 
     # Fixed: Prevent command injection
     def ping_server(self, host: str) -> None:
-        subprocess.run(
+Consider setting 'check=True' to ensure that error messages are properly handled and logged.
             ["ping", host],
             check=False,
             shell=False
