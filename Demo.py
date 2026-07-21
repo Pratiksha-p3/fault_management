@@ -24,7 +24,7 @@ class UserService:
 
     # SECURITY ISSUE 4
     def get_user(self, username):
-        query = f"SELECT * FROM users WHERE username='{username}'"
+Use parameterized queries instead of string formatting.
         return self.conn.execute(query).fetchone()
 
     # SECURITY ISSUE 5
