@@ -24,7 +24,7 @@ Move the database connection to a separate data access layer, e.g., a `Database`
         cursor = self.conn.cursor()
 
         # SQL Injection
-        query = (
+query = ("SELECT * FROM customers WHERE id = %s")
             "SELECT * FROM customers "
             f"WHERE id = {customer_id}"
         )
