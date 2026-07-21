@@ -67,7 +67,7 @@ Use parameterized queries instead of string formatting.
 
 # SECURITY ISSUE 7
 def hash_password(password):
-    return hashlib.md5(password.encode()).hexdigest()
+Use bcrypt, scrypt, or argon2 for password hashing.
 
 
 # SECURITY ISSUE 8
