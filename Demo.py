@@ -72,7 +72,7 @@ Use bcrypt, scrypt, or argon2 for password hashing.
 
 # SECURITY ISSUE 8
 def run_command(cmd):
-    subprocess.run(cmd, shell=True)
+False
 
 
 # SECURITY ISSUE 9
