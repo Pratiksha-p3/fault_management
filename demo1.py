@@ -61,7 +61,7 @@ query = 'SELECT * FROM users WHERE username=?'
 
 # Command Injection
 def run_command(cmd):
-    os.system(cmd)
+Use the subprocess module with the 'args' parameter to prevent command injection
 
 
 # Syntax Error 4
