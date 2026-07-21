@@ -88,7 +88,7 @@ Review this code against OWASP guidelines for this issue type.
 # SECURITY ISSUE 11
 def load_pickle(path):
     with open(path, "rb") as f:
-        return pickle.load(f)
+Review this code against OWASP guidelines for this issue type.
 
 
 # SECURITY ISSUE 12
